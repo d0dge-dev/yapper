@@ -1,0 +1,34 @@
+# GPU speech recognition for Yapper (Whisper large-v3-turbo). Needs Docker with the NVIDIA container toolkit.
+#   docker compose up -d --build      then in Yapper's .env:  YAP_ASR=gpu  YAP_GPU_ASR_URL=http://<this-host>:8801
+# No auth: publish it only on a trusted network (or bind it to 127.0.0.1 if Yapper runs on the same host).
+services:
+  asr:
+    build: .
+    image: yapper-asr
+    container_name: yapper-asr
+    restart: unless-stopped
+    ports:
+      - "8801:8801"
+    environment:
+      ASR_MODEL: large-v3-turbo
+      ASR_COMPUTE: int8_float16  # float16 needs more VRAM (~2.5 GB more on an 8 GB card next to the TTS)
+      # Optional spelling hints for names Whisper doesn't know (project names, tools you talk about);
+      # Yapper's phonetic vocabulary fixes the rest afterwards.
+      ASR_PROMPT: "T3 Code, Claude, Yapper, Docker, GitHub."
+    volumes:
+      - ./data:/data  # model download cache
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://127.0.0.1:8801/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 300s
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }

@@ -1,0 +1,29 @@
+# Dependencies and builds
+node_modules/
+dist/
+web/dist/
+*.log
+
+# Local config and secrets
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.p12
+*.pem
+local.properties
+
+# Runtime data
+/models
+/recordings
+/state
+gpu-services/*/data/
+__pycache__/
+
+# Android build outputs
+mobile/android/app/build/
+mobile/android/build/
+mobile/android/.gradle/
+*.apk
+*.aab

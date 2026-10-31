@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>yap – offline</title>
+    <style>
+      :root { color-scheme: dark light; --bg: #0a0a0a; --fg: #f5f5f5; --muted: #a3a3a3; --accent: #5b6ef7; }
+      @media (prefers-color-scheme: light) { :root { --bg: #fcfcfc; --fg: #0a0a0a; --muted: #525252; } }
+      html, body { height: 100%; margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.45 system-ui, sans-serif; }
+      main { min-height: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center;
+             gap: 14px; padding: max(env(safe-area-inset-top), 24px) 28px max(env(safe-area-inset-bottom), 24px); text-align: center; }
+      h1 { font-size: 22px; margin: 8px 0 0; }
+      p { margin: 0; color: var(--muted); max-width: 22em; }
+      button { margin-top: 10px; font: inherit; font-weight: 600; color: #fff; background: var(--accent); border: 0; border-radius: 999px; padding: 12px 28px; }
+      #state { font-size: 13px; min-height: 1.4em; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <svg width="72" height="72" viewBox="0 0 512 512" aria-hidden="true">
+        <circle cx="256" cy="256" r="150" fill="none" stroke="#5b6ef7" stroke-width="28" />
+        <g fill="currentColor">
+          <rect x="166" y="216" width="28" height="80" rx="14" /><rect x="214" y="176" width="28" height="160" rx="14" />
+          <rect x="262" y="196" width="28" height="120" rx="14" /><rect x="310" y="226" width="28" height="60" rx="14" />
+        </g>
+      </svg>
+      <h1>yap ist nicht erreichbar</h1>
+      <p>Ist das VPN (z.&nbsp;B. Tailscale) an, falls der Server nur im LAN erreichbar ist? Sonst läuft der Server gerade nicht.</p>
+      <button id="retry" type="button">Erneut versuchen</button>
+      <p id="state"></p>
+    </main>
+    <script>
+      // This page is served from the APK at <YAPPER_SERVER_URL>/offline.html, so "/" is the real app.
+      // /api/health should be reachable without login (exempt it in your SSO), so it tells "server up" apart from "no route".
+      const state = document.getElementById("state");
+      let busy = false;
+      async function probe(manual) {
+        if (busy) return;
+        busy = true;
+        if (manual) state.textContent = "Verbinde …";
+        try {
+          const res = await fetch("/api/health", { cache: "no-store", redirect: "manual" });
+          if (res.ok || res.type === "opaqueredirect" || res.status === 503) return location.replace("/");
+          state.textContent = `Server antwortet mit ${res.status}.`;
+        } catch {
+          state.textContent = manual ? "Keine Verbindung." : "";
+        } finally {
+          busy = false;
+        }
+      }
+      document.getElementById("retry").addEventListener("click", () => probe(true));
+      addEventListener("online", () => probe(false));
+      document.addEventListener("visibilitychange", () => document.visibilityState === "visible" && probe(false));
+      setInterval(() => document.visibilityState === "visible" && probe(false), 5000);
+    </script>
+  </body>
+</html>

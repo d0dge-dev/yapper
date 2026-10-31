@@ -1,0 +1,19 @@
+{
+  "name": "yapper-mobile",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Capacitor shell for the Yapper web app (Android).",
+  "type": "module",
+  "scripts": {
+    "sync": "cap sync android",
+    "apk": "cap sync android && cd android && ./gradlew assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/core": "8.5.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.3",
+    "typescript": "7.0.2"
+  }
+}

@@ -1,0 +1,24 @@
+# Example systemd *user* unit for Yapper. Adjust the paths, then:
+#   cp deploy/yapper.service ~/.config/systemd/user/ && systemctl --user daemon-reload
+#   systemctl --user enable --now yapper
+#   loginctl enable-linger "$USER"     # keep it running while you're logged out
+# Run it as the same user as T3 Code: Yapper talks to T3 on 127.0.0.1 and reads the thread repos from disk.
+[Unit]
+Description=Yapper: voice calls with T3 Code threads
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# The checkout, after `npm ci && npm run build`.
+WorkingDirectory=%h/yapper
+# T3_TOKEN and YAP_* (see .env.example). Keep it mode 600. Without this line the server reads ./.env.
+# EnvironmentFile=%h/.config/yapper/env
+# Node >= 24 must be on PATH (or use an absolute path here, e.g. from nvm).
+ExecStart=/usr/bin/env node server/main.ts
+# Exits when T3 is unreachable or speaks an unsupported protocol; retry until it's back.
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

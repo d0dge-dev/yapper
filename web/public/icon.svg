@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Yapper: the live view's glow with five sound-wave bars. Android uses the same design as an adaptive icon. -->
+  <defs>
+    <radialGradient id="a" cx=".22" cy="1.05" r=".78"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
+    <radialGradient id="b" cx=".55" cy="1.12" r=".72"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/></radialGradient>
+    <radialGradient id="c" cx=".92" cy="1.05" r=".72"><stop offset="0" stop-color="#14b8a6"/><stop offset="1" stop-color="#14b8a6" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="512" height="512" fill="#0b0d14"/>
+  <rect width="512" height="512" fill="url(#a)"/>
+  <rect width="512" height="512" fill="url(#b)"/>
+  <rect width="512" height="512" fill="url(#c)"/>
+  <g fill="#fff">
+    <rect x="131" y="211" width="34" height="90" rx="17"/>
+    <rect x="187" y="161" width="34" height="190" rx="17"/>
+    <rect x="243" y="121" width="34" height="270" rx="17"/>
+    <rect x="299" y="176" width="34" height="160" rx="17"/>
+    <rect x="355" y="221" width="34" height="70" rx="17"/>
+  </g>
+</svg>

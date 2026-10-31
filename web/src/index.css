@@ -1,0 +1,368 @@
+/* Design tokens ported from T3 Code (github.com/pingdotgg/t3code, apps/web/src/index.css):
+   same Tailwind v4 setup, the same semantic colour roles, radius scale, font
+   stacks and glass utilities. The runtime appearance-contrast and custom
+   theme machinery is left out; the contrast-* roles resolve to the base roles. */
+@import "tailwindcss" source(".");
+
+@custom-variant dark (&:is(.dark, .dark *));
+@custom-variant light (&:not(.dark, .dark *));
+
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono:
+    ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@theme inline {
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: calc(1 / 0.6875);
+  --text-3xs: 0.625rem;
+  --text-3xs--line-height: calc(0.875 / 0.625);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --shadow-composer: 0 12px 28px -18px rgb(0 0 0 / 40%);
+  --shadow-composer-dark: 0 14px 32px -18px rgb(0 0 0 / 75%);
+  --color-zinc-25: oklch(99.2% 0 0);
+  --animate-status-pulse: status-pulse 2s infinite;
+
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning: var(--warning);
+  --color-warning-surface: var(--warning-surface);
+  --color-error-foreground: var(--error-foreground);
+  --color-error: var(--error);
+  --color-error-surface: var(--error-surface);
+  --color-success-foreground: var(--success-foreground);
+  --color-success: var(--success);
+  --color-info-foreground: var(--info-foreground);
+  --color-info: var(--info);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive: var(--destructive);
+  --color-ring: var(--ring);
+  --color-input: var(--contrast-input);
+  --color-border: var(--contrast-border);
+  --color-accent-foreground: var(--contrast-accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--contrast-muted-foreground);
+  --color-muted: var(--muted);
+  --color-placeholder: var(--contrast-placeholder);
+  --color-secondary-label: var(--contrast-secondary-label);
+  --color-icon-muted: var(--contrast-icon-muted);
+  --color-secondary-foreground: var(--contrast-secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--contrast-popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--contrast-card-foreground);
+  --color-card: var(--card);
+  --color-code: var(--code-background);
+  --color-code-foreground: var(--code-foreground);
+  --color-foreground: var(--contrast-foreground);
+  --color-background: var(--background);
+  --color-surface-raised: var(--surface-raised);
+  --color-message: var(--message-surface);
+  --color-message-foreground: var(--contrast-message-foreground);
+  --color-message-action: var(--message-action);
+  --color-message-action-foreground: var(--message-action-foreground);
+  --color-message-action-hover: var(--message-action-hover);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-row-hover: var(--sidebar-row-hover);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  @keyframes status-pulse {
+    0%, 40% { opacity: 1; animation-timing-function: steps(6); }
+    50%, 90% { opacity: 0.5; animation-timing-function: steps(6); }
+    100% { opacity: 1; }
+  }
+}
+
+:root {
+  --app-scrollbar-width: 6px;
+  --app-scrollbar-thumb: rgb(217 217 217);
+  --app-scrollbar-thumb-hover: rgb(191 191 191);
+  --control-radius: 0.5rem;
+  --glass-blur: 12px;
+  --glass-opacity: 80%;
+  --glass-saturation: 1.14;
+  --chat-content-max-width: 46rem;
+  --workspace-topbar-height: 52px;
+  --workspace-gutter: 0.75rem;
+
+  @variant sm {
+    --workspace-gutter: 1.25rem;
+  }
+
+  @variant dark {
+    --app-scrollbar-thumb: rgb(255 255 255 / 8%);
+    --app-scrollbar-thumb-hover: rgb(255 255 255 / 12%);
+    --glass-blur: 16px;
+    --glass-saturation: 1.08;
+  }
+}
+
+:root {
+  color-scheme: light;
+  --radius: 0.625rem;
+  --background: var(--color-zinc-25);
+  --app-chrome-background: var(--background);
+  --surface-raised: color-mix(in srgb, var(--card) 20%, transparent);
+  --foreground: var(--color-zinc-800);
+  --card: var(--color-white);
+  --card-foreground: var(--color-zinc-800);
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-zinc-800);
+  --primary: oklch(0.488 0.217 264);
+  --primary-foreground: var(--color-white);
+  --secondary: var(--color-zinc-50);
+  --secondary-foreground: var(--color-zinc-800);
+  --muted: var(--color-zinc-50);
+  --muted-foreground: var(--color-zinc-500);
+  --placeholder: var(--muted-foreground);
+  --secondary-label: var(--muted-foreground);
+  --icon-muted: var(--muted-foreground);
+  --message-surface: var(--accent);
+  --message-foreground: var(--foreground);
+  --message-action: var(--primary);
+  --message-action-foreground: var(--primary-foreground);
+  --message-action-hover: color-mix(in srgb, var(--primary) 90%, var(--background));
+  --accent: var(--color-zinc-100);
+  --accent-foreground: var(--color-zinc-900);
+  --error: var(--color-red-500);
+  --error-foreground: var(--color-red-700);
+  --error-surface: color-mix(in srgb, var(--error) 8%, transparent);
+  --destructive: var(--error);
+  --border: var(--color-zinc-200);
+  --input: var(--color-zinc-300);
+  --ring: var(--primary);
+  --destructive-foreground: var(--error-foreground);
+  --info: var(--color-blue-500);
+  --info-foreground: var(--color-blue-700);
+  --success: var(--color-emerald-500);
+  --success-foreground: var(--color-emerald-700);
+  --warning: var(--color-amber-500);
+  --warning-foreground: var(--color-amber-700);
+  --warning-surface: color-mix(in srgb, var(--warning) 8%, transparent);
+  --sidebar: var(--color-zinc-50);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-row-hover: var(--color-zinc-100);
+  --code-background: color-mix(in srgb, var(--card) 90%, var(--background));
+  --code-foreground: var(--foreground);
+
+  @variant dark {
+    color-scheme: dark;
+    --background: var(--color-neutral-950);
+    --surface-raised: color-mix(in srgb, var(--background) 97%, var(--color-white));
+    --foreground: var(--color-neutral-100);
+    --card: color-mix(in srgb, var(--background) 97%, var(--color-white));
+    --card-foreground: var(--color-neutral-100);
+    --popover: color-mix(in srgb, var(--background) 97%, var(--color-white));
+    --popover-foreground: var(--color-neutral-100);
+    --primary: oklch(0.571 0.21 264);
+    --secondary: --alpha(var(--color-white) / 3%);
+    --secondary-foreground: var(--color-neutral-100);
+    --muted: --alpha(var(--color-white) / 3%);
+    --muted-foreground: color-mix(in srgb, var(--color-neutral-500) 90%, var(--color-white));
+    --accent: --alpha(var(--color-white) / 4%);
+    --accent-foreground: var(--color-neutral-100);
+    --error: color-mix(in srgb, var(--color-red-500) 90%, var(--color-white));
+    --error-foreground: var(--color-red-400);
+    --error-surface: color-mix(in srgb, var(--error) 16%, transparent);
+    --border: --alpha(var(--color-white) / 6%);
+    --input: --alpha(var(--color-white) / 8%);
+    --info-foreground: var(--color-blue-400);
+    --success-foreground: var(--color-emerald-400);
+    --warning-foreground: var(--color-amber-400);
+    --warning-surface: color-mix(in srgb, var(--warning) 16%, transparent);
+    --sidebar: var(--card);
+    --sidebar-row-hover: var(--accent);
+  }
+
+  /* T3 derives these from an appearance-contrast setting; at its default (100%, 0 boost) they equal the base roles. */
+  --contrast-input: var(--input);
+  --contrast-border: var(--border);
+  --contrast-foreground: var(--foreground);
+  --contrast-muted-foreground: var(--muted-foreground);
+  --contrast-placeholder: var(--placeholder);
+  --contrast-secondary-label: var(--secondary-label);
+  --contrast-icon-muted: var(--icon-muted);
+  --contrast-card-foreground: var(--card-foreground);
+  --contrast-popover-foreground: var(--popover-foreground);
+  --contrast-accent-foreground: var(--accent-foreground);
+  --contrast-secondary-foreground: var(--secondary-foreground);
+  --contrast-message-foreground: var(--message-foreground);
+}
+
+@utility surface-glass {
+  background: color-mix(in srgb, var(--background) var(--glass-opacity), transparent);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+}
+
+@utility dialog-glass {
+  background: color-mix(in srgb, var(--background) var(--glass-opacity), transparent);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  border-color: color-mix(in srgb, var(--contrast-foreground) 10%, transparent);
+  box-shadow: 0 24px 64px -24px rgb(0 0 0 / 65%);
+
+  @variant dark {
+    border-color: color-mix(in srgb, var(--color-white) 8%, transparent);
+    box-shadow:
+      inset 0 1px rgb(255 255 255 / 4%),
+      0 24px 72px -20px rgb(0 0 0 / 90%);
+  }
+}
+
+@utility dialog-backdrop {
+  background: color-mix(in srgb, var(--background) 60%, transparent);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+
+  @variant dark {
+    background: color-mix(in srgb, var(--background) 64%, transparent);
+  }
+}
+
+@utility dropdown-glass {
+  background: color-mix(in srgb, var(--popover) 18%, color-mix(in srgb, var(--popover) var(--glass-opacity), transparent));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  border: 1px solid color-mix(in srgb, var(--contrast-foreground) 10%, transparent);
+}
+
+@utility pt-safe {
+  padding-top: max(env(safe-area-inset-top), 0px);
+}
+@utility pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom), 0px);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before {
+    @apply border-border outline-ring/50;
+  }
+  html,
+  body {
+    background-color: var(--app-chrome-background);
+  }
+  body {
+    @apply text-foreground relative;
+    font-family: var(--font-sans);
+    margin: 0;
+    height: 100dvh;
+    overflow: hidden;
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #root {
+    height: 100%;
+  }
+}
+
+::-webkit-scrollbar { width: var(--app-scrollbar-width); }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--app-scrollbar-thumb); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--app-scrollbar-thumb-hover); }
+
+/* Chat markdown, as in T3 Code's timeline. */
+.chat-markdown > :first-child { margin-top: 0; }
+.chat-markdown > :last-child { margin-bottom: 0; }
+.chat-markdown p,
+.chat-markdown pre { margin: 0.65rem 0; }
+.chat-markdown :not(pre) > code {
+  border: 1px solid var(--contrast-border);
+  border-radius: 0.375rem;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background: var(--muted);
+  padding: 0.1rem 0.35rem;
+  color: var(--contrast-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+.chat-markdown pre {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--contrast-border);
+  border-radius: 0.75rem;
+  background: var(--muted);
+  padding: 0.8rem 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  white-space: pre;
+  scrollbar-width: thin;
+}
+
+/* Live view: soft light along the bottom edge, Gemini Live style. Three blurred blobs drift slowly; the state
+   (data-state, same names as before) sets brightness, height and colour. --level (0..1, optional) adds audio movement. */
+.live-glow {
+  --h: 0.55;
+  --o: 0.55;
+  position: absolute;
+  inset-inline: -25%;
+  bottom: -22vh;
+  height: 62vh;
+  pointer-events: none;
+  filter: blur(56px) saturate(1.15);
+  opacity: var(--o);
+  transform-origin: 50% 100%;
+  transform: scaleY(calc(var(--h) + var(--level, 0) * 0.45));
+  transition: opacity 0.6s ease, transform 0.35s ease;
+}
+.live-glow > span {
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  border-radius: 9999px;
+  transition: background-color 0.8s ease;
+  animation: glow-drift 9s ease-in-out infinite alternate;
+}
+.live-glow > span:nth-child(1) { left: 4%; width: 52%; background: #3b82f6; }
+.live-glow > span:nth-child(2) { left: 30%; width: 44%; background: #8b5cf6; animation-duration: 11s; animation-delay: -3s; }
+.live-glow > span:nth-child(3) { right: 2%; width: 50%; background: #14b8a6; animation-duration: 13s; animation-delay: -6s; }
+.dark .live-glow > span { mix-blend-mode: screen; }
+
+.live-glow[data-state="muted"] { --h: 0.3; --o: 0.3; filter: blur(56px) grayscale(0.85); }
+.live-glow[data-state="connecting"] { --h: 0.35; --o: 0.25; filter: blur(56px) grayscale(1); }
+.live-glow[data-state="listening"] { --h: 0.55; --o: 0.55; }
+.live-glow[data-state="hearing"] { --h: 0.85; --o: 0.95; }
+.live-glow[data-state="hearing"] > span { animation-duration: 3.5s; }
+.live-glow[data-state="sending"] { --h: 0.7; --o: 0.8; }
+.live-glow[data-state="speaking"] { --h: 0.8; --o: 0.95; animation: glow-breathe 1.6s ease-in-out infinite; }
+.live-glow[data-state="working"] { --h: 0.5; --o: 0.6; }
+.live-glow[data-state="working"] > span { animation-duration: 5s; }
+.live-glow[data-state="working"] > span:nth-child(3) { background: #6366f1; }
+.live-glow[data-state="approval"] > span,
+.live-glow[data-state="question"] > span { background: #f59e0b; }
+.live-glow[data-state="approval"] > span:nth-child(2),
+.live-glow[data-state="question"] > span:nth-child(2) { background: #f97316; }
+.live-glow[data-state="approval"],
+.live-glow[data-state="question"] { --h: 0.7; --o: 0.85; }
+
+@keyframes glow-drift {
+  0% { transform: translateX(-6%) scale(1, 0.92); }
+  100% { transform: translateX(6%) scale(1.08, 1.05); }
+}
+@keyframes glow-breathe {
+  50% { opacity: 0.7; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .live-glow, .live-glow > span { animation: none !important; }
+}
+
+/* Small state dot in the minimised call bar. */
+.live-dot { width: 0.6rem; height: 0.6rem; flex-shrink: 0; border-radius: 9999px; background: var(--success); }
+.live-dot[data-state="speaking"] { background: #8b5cf6; animation: glow-breathe 1.4s ease-in-out infinite; }
+.live-dot[data-state="working"] { background: var(--primary); animation: glow-breathe 1.1s ease-in-out infinite; }
+.live-dot[data-state="approval"],
+.live-dot[data-state="question"] { background: var(--warning); }
+.live-dot[data-state="connecting"],
+.live-dot[data-state="muted"] { background: var(--muted-foreground); }

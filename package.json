@@ -1,0 +1,43 @@
+{
+  "name": "yapper",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Voice calls with T3 Code threads: local speech in and out, steer the agent by voice.",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node server/main.ts",
+    "models": "scripts/fetch-models.sh",
+    "smoke": "node scripts/smoke.ts",
+    "bench": "node scripts/bench-speech.ts",
+    "typecheck": "tsc --noEmit && tsc -p web/tsconfig.json",
+    "build": "vite build web",
+    "dev:web": "vite web"
+  },
+  "dependencies": {
+    "opusscript": "^0.1.1",
+    "sherpa-onnx-node": "^1.13.8",
+    "werift": "^0.25.1",
+    "ws": "^8.22.0"
+  },
+  "devDependencies": {
+    "@base-ui/react": "^1.9.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/ws": "^8.18.2",
+    "@vitejs/plugin-react": "^6.1.2",
+    "class-variance-authority": "^0.7.1",
+    "lucide-react": "^0.564.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwind-merge": "^3.7.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5"
+  }
+}

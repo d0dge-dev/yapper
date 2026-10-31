@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Incoming-call screen: dark top, the live view's glow (blue, violet, teal) rising from the bottom. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="100dp" android:height="200dp"
+    android:viewportWidth="100" android:viewportHeight="200">
+    <path android:pathData="M0,0h100v200h-100z" android:fillColor="#0B0D14"/>
+    <path android:pathData="M0,0h100v200h-100z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="18" android:centerY="212" android:gradientRadius="92"
+                android:startColor="#E63B82F6" android:endColor="#003B82F6"/>
+        </aapt:attr>
+    </path>
+    <path android:pathData="M0,0h100v200h-100z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="52" android:centerY="222" android:gradientRadius="86"
+                android:startColor="#E68B5CF6" android:endColor="#008B5CF6"/>
+        </aapt:attr>
+    </path>
+    <path android:pathData="M0,0h100v200h-100z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="92" android:centerY="212" android:gradientRadius="86"
+                android:startColor="#E614B8A6" android:endColor="#0014B8A6"/>
+        </aapt:attr>
+    </path>
+</vector>

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Yapper</string>
+    <string name="title_activity_main">Yapper</string>
+    <string name="package_name">io.github.d0dge_dev.yapper</string>
+    <string name="custom_url_scheme">io.github.d0dge_dev.yapper</string>
+
+    <!-- Ongoing call (CallService, channel call_active) -->
+    <string name="call_channel_name">Laufender Anruf</string>
+    <string name="call_channel_description">Der laufende Yapper-Anruf mit Auflegen-Knopf, auch auf dem Sperrbildschirm.</string>
+    <string name="call_notification_title">Anruf mit %1$s</string>
+    <string name="call_notification_text">Yapper hört zu</string>
+    <string name="call_default_title">Thread</string>
+
+    <!-- Callback ringing (channel call_incoming) and missed callbacks (channel call_missed) -->
+    <string name="ring_channel_name">Rückrufe</string>
+    <string name="ring_channel_description">Yapper ruft zurück, wenn ein Thread fertig ist oder dich braucht. Klingelt wie ein Anruf.</string>
+    <string name="ring_caller">Yapper</string>
+    <string name="ring_label">Rückruf</string>
+    <string name="ring_answer">Annehmen</string>
+    <string name="ring_decline">Ablehnen</string>
+    <string name="missed_channel_name">Verpasste Rückrufe</string>
+    <string name="missed_channel_description">Ein Rückruf, der nicht angenommen wurde. Tippen öffnet den Thread.</string>
+    <string name="missed_title">Verpasster Rückruf: %1$s</string>
+    <string name="missed_text">Yapper %1$s.</string>
+</resources>

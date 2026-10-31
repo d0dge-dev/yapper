@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
+    />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fcfcfc" media="(prefers-color-scheme: light)" />
+    <title>Yapper</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <script>
+      // Follow the system appearance like T3 Code does: toggle `.dark` on <html>.
+      (() => {
+        const mq = matchMedia("(prefers-color-scheme: dark)");
+        const apply = () => document.documentElement.classList.toggle("dark", mq.matches);
+        apply();
+        mq.addEventListener("change", apply);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./src/main.tsx"></script>
+  </body>
+</html>
