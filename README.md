@@ -25,7 +25,21 @@ or English.
 
 Yapper is an independent project and is **not affiliated with or endorsed by T3 Code or Ping (ping.gg)**.
 
-![Thread view](ui-preview.png)
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/thread-list.png" width="250" alt="Thread list"><br><sub>Threads across projects, running ones marked</sub></td>
+    <td align="center"><img src="docs/screenshots/thread.png" width="250" alt="Thread view"><br><sub>A thread: your messages, tool activity, the agent's reply</sub></td>
+    <td align="center"><img src="docs/screenshots/call.png" width="250" alt="Live call"><br><sub>Live call while the agent works and speaks</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/call-log.png" width="250" alt="Call log"><br><sub>Call log with a missed callback and playable results</sub></td>
+    <td align="center"><img src="docs/screenshots/model.png" width="250" alt="Model and mode"><br><sub>Model, reasoning and permissions per thread</sub></td>
+    <td align="center"><img src="docs/screenshots/call-light.png" width="250" alt="Live call, light theme"><br><sub>Light theme follows the system</sub></td>
+  </tr>
+</table>
+
+The web UI follows T3 Code's look and is built on the same stack (React, Tailwind, Base UI), so it feels like part
+of T3 Code. Screenshots show demo data.
 
 ## Status
 
